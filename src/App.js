@@ -1,25 +1,40 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Sources from './Sources'
 
+const sources_url=`https://newsapi.org/v2/sources?apiKey=ebb8a592d29044f6ad3564bfb4dc959a`
 class App extends Component {
+constructor(props){
+  super(props)
+  this.state={
+    sources:[]
+
+  }
+
+}
+  componentWillMount(){
+    fetch(sources_url)
+    .then((response)=>{
+         return response.json()
+    }).then((json)=>{
+      // console.log(json.sources)
+        this.setState=({
+        sources:json.sources
+      
+      })
+      
+      
+      })
+      
+      
+  }
+  
+  
   render() {
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        
+           <Sources sourcelist={this.state.sources} />
       </div>
     );
   }
